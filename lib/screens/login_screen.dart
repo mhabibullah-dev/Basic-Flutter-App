@@ -66,9 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => HomeScreen(
-          userEmail: _emailController.text.trim(),
-        ),
+        builder: (_) => HomeScreen(userEmail: _emailController.text.trim()),
       ),
     );
   }
@@ -87,226 +85,166 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppTheme.surface,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // ── Branding Header ─────────────────────────────────
-              _BrandingHeader(),
-
-              // ── Login Form Card ──────────────────────────────────
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Title
-                    Text(
-                      'Login',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        color: AppTheme.onSurface,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ── Login Form Card ──────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title
+                      Text(
+                        'Login',
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          color: AppTheme.onSurface,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Enter your credentials to continue',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: AppTheme.onSurfaceVariant,
+                      const SizedBox(height: 6),
+                      Text(
+                        'Enter your credentials to continue',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: AppTheme.onSurfaceVariant,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 32),
+                      const SizedBox(height: 32),
 
-                    // ── Form ──────────────────────────────────────
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          // Email Field
-                          TextFormField(
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            textInputAction: TextInputAction.next,
-                            validator: _validateEmail,
-                            style: GoogleFonts.inter(
-                              fontSize: 15,
-                              color: AppTheme.onSurface,
-                            ),
-                            decoration: InputDecoration(
-                              labelText: 'Email Address',
-                              hintText: 'you@example.com',
-                              prefixIcon: const Icon(Icons.email_outlined,
-                                  color: AppTheme.onSurfaceVariant),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Password Field
-                          TextFormField(
-                            controller: _passwordController,
-                            obscureText: _obscurePassword,
-                            textInputAction: TextInputAction.done,
-                            validator: _validatePassword,
-                            onFieldSubmitted: (_) => _onLoginPressed(),
-                            style: GoogleFonts.inter(
-                              fontSize: 15,
-                              color: AppTheme.onSurface,
-                            ),
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              hintText: '••••••••',
-                              prefixIcon: const Icon(Icons.lock_outline,
-                                  color: AppTheme.onSurfaceVariant),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _obscurePassword
-                                      ? Icons.visibility_off_outlined
-                                      : Icons.visibility_outlined,
+                      // ── Form ──────────────────────────────────────
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            // Email Field
+                            TextFormField(
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              validator: _validateEmail,
+                              style: GoogleFonts.inter(
+                                fontSize: 15,
+                                color: AppTheme.onSurface,
+                              ),
+                              decoration: InputDecoration(
+                                labelText: 'Email Address',
+                                hintText: 'you@example.com',
+                                prefixIcon: const Icon(
+                                  Icons.email_outlined,
                                   color: AppTheme.onSurfaceVariant,
                                 ),
-                                onPressed: () => setState(
-                                  () => _obscurePassword = !_obscurePassword,
-                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 12),
+                            const SizedBox(height: 16),
 
-                          // Forgot Password
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton.icon(
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        'Password reset link sent to your email.'),
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              },
-                              icon: const Icon(Icons.lock_reset, size: 16),
-                              label: const Text('Forgot Password?'),
-                              style: TextButton.styleFrom(
-                                foregroundColor: AppTheme.tertiary,
-                                textStyle: GoogleFonts.inter(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
+                            // Password Field
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: _obscurePassword,
+                              textInputAction: TextInputAction.done,
+                              validator: _validatePassword,
+                              onFieldSubmitted: (_) => _onLoginPressed(),
+                              style: GoogleFonts.inter(
+                                fontSize: 15,
+                                color: AppTheme.onSurface,
+                              ),
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                prefixIcon: const Icon(
+                                  Icons.lock_outline,
+                                  color: AppTheme.onSurfaceVariant,
                                 ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 28),
-
-                          // Login Button (gradient)
-                          _GradientButton(
-                            onPressed: _isLoading ? null : _onLoginPressed,
-                            isLoading: _isLoading,
-                            label: 'Login',
-                          ),
-                          const SizedBox(height: 40),
-
-                          // Divider
-                          Row(
-                            children: [
-                              const Expanded(
-                                child: Divider(color: AppTheme.outlineVariant),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                child: Text(
-                                  'OR',
-                                  style: theme.textTheme.labelSmall?.copyWith(
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscurePassword
+                                        ? Icons.visibility_off_outlined
+                                        : Icons.visibility_outlined,
                                     color: AppTheme.onSurfaceVariant,
                                   ),
+                                  onPressed: () => setState(
+                                    () => _obscurePassword = !_obscurePassword,
+                                  ),
                                 ),
                               ),
-                              const Expanded(
-                                child: Divider(color: AppTheme.outlineVariant),
+                            ),
+                            const SizedBox(height: 12),
+
+                            // Forgot Password
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton.icon(
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Password reset link sent to your email.',
+                                      ),
+                                      behavior: SnackBarBehavior.floating,
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.lock_reset, size: 16),
+                                label: const Text('Forgot Password?'),
+                                style: TextButton.styleFrom(
+                                  foregroundColor: AppTheme.tertiary,
+                                  textStyle: GoogleFonts.inter(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
+                            ),
+                            const SizedBox(height: 28),
 
-                          // Create Account
-                          _CreateAccountButton(),
-                        ],
+                            // Login Button (gradient)
+                            _GradientButton(
+                              onPressed: _isLoading ? null : _onLoginPressed,
+                              isLoading: _isLoading,
+                              label: 'Login',
+                            ),
+                            const SizedBox(height: 40),
+
+                            // Divider
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Divider(
+                                    color: AppTheme.outlineVariant,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Text(
+                                    'OR',
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                      color: AppTheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                                ),
+                                const Expanded(
+                                  child: Divider(
+                                    color: AppTheme.outlineVariant,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+
+                            // Create Account
+                            _CreateAccountButton(),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ── Branding Header ────────────────────────────────────────────────────────────
-class _BrandingHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [AppTheme.primary, AppTheme.primaryContainer],
-        ),
-      ),
-      padding: const EdgeInsets.fromLTRB(24, 48, 24, 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // App icon / logo pill
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.corporate_fare,
-                    color: Colors.white, size: 16),
-                const SizedBox(width: 6),
-                Text(
-                  'Precision & Trust',
-                  style: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white.withOpacity(0.9),
-                    letterSpacing: 0.5,
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-          Text(
-            'Architectural\nAnchor',
-            style: GoogleFonts.manrope(
-              fontSize: 36,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              letterSpacing: -0.02 * 36,
-              height: 1.1,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Access your secure professional dashboard\nwith industry-standard structural integrity.',
-            style: GoogleFonts.inter(
-              fontSize: 13,
-              color: Colors.white.withOpacity(0.8),
-              height: 1.5,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

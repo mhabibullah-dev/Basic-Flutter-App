@@ -1,17 +1,29 @@
-# basic_flutter_app
+# Basic Flutter App
 
-A new Flutter project.
+A modern, visually appealing Flutter application managing simple processes with an elegant dark/light theme, typography, and clean UI components.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **Architectural UI**: Sleek layout, subtle shadows, and premium typography.
+- **Home Screen Dashboard**: Visual stat pillars, recent update activity, and a customizable welcome card.
+- **Login Screen Authentication**: A clean and modern authentication UI template for logging into the system.
+- **Responsive Navigation**: Bottom Navigation integration mapping multiple tabs.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
+**Login Screen**
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Home Screen**
+
+
+## Tech Stack
+
+- [Flutter](https://flutter.dev/) - Framework
+- [Dart](https://dart.dev/) - Programming Language
+- [Google Fonts](https://pub.dev/packages/google_fonts) - Custom premium typography
+
+## Architecture Layout
+
+* `lib/screens/` - Contains primary UI features like home and login.
+* `lib/theme/` - Contains `AppTheme` with centralized colors, gradients, and typography presets.
+* `lib/main.dart` - Entrypoint wrapping the app inside root material architecture.

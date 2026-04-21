@@ -3,15 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
 import 'login_screen.dart';
 
-/// Home Screen
-///
-/// Implements the Stitch "Simple Home Screen" design from the
-/// "Architectural Anchor" project. Features:
-///   - AppBar with app title and profile avatar
-///   - Welcome greeting with project count
-///   - "Recent Updates" section with 3 activity cards
-///   - Bottom navigation bar: Home, Search, Activity, Profile
-///   - Logout action that pops back to the Login Screen
 class HomeScreen extends StatefulWidget {
   final String userEmail;
 
@@ -155,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showLogoutDialog() {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
+      builder: (ctx) => AlertDialog.adaptive(
         backgroundColor: AppTheme.surfaceContainerLowest,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
@@ -167,26 +158,23 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         content: Text(
           'Are you sure you want to sign out?',
-          style: GoogleFonts.inter(
-            color: AppTheme.onSurfaceVariant,
-          ),
+          style: GoogleFonts.inter(color: AppTheme.onSurfaceVariant),
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               _onLogout();
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppTheme.primary,
-              foregroundColor: Colors.white,
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red,
               shape: const StadiumBorder(),
             ),
             child: const Text('Sign Out'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -335,7 +323,7 @@ class _WelcomeCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Everything is on track. You have 24 active\nprojects requiring your attention today.',
+            'Everything is on track. You have 24 active projects requiring your attention today.',
             style: GoogleFonts.inter(
               fontSize: 13,
               color: Colors.white.withOpacity(0.85),
@@ -509,11 +497,7 @@ class _PlaceholderTab extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            (icon).icon,
-            size: 56,
-            color: AppTheme.outlineVariant,
-          ),
+          Icon((icon).icon, size: 56, color: AppTheme.outlineVariant),
           const SizedBox(height: 12),
           Text(
             '$label coming soon',
